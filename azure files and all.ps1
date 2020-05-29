@@ -11,8 +11,9 @@ $VNet = 'DemoVNet'
 $Address = '10.0.1.0/24'
 $VMSize = 'Standard_B1s'
 $AvailabilitySet = 'DemoAS'
-
-
+$VnetAddress = '10.0.0.0/16'
+$SubNet = 'DemoSubnet'
+$SubNetAddress = '10.0.1.0/24'
 # Create a resouce group
 az group create --name $ResourceGroup --location $Location
 
@@ -27,3 +28,7 @@ az vm create --resource-group $ResourceGroup --name $VM --image $Image --size $V
 
 # get status of a vm
 az vm get-instance-view --name $VM --resource-group $ResourceGroup --query instanceView.statuses[1] --output table
+
+# create a vnet
+az network vnet create --resource-group $ResourceGroup --name $VNet --address-prefix $VnetAddress --subnet-name $SubNet --subnet-prefix $SubNetAddress
+
