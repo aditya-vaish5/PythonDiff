@@ -9,7 +9,7 @@ $User = 'adityav'
 $VNet = 'DemoVNet'
 $VNet2 = 'DemoVNet2'
 $PeeringName = 'Vnet1toVnet2'
-$Address = '10.0.1.0/24'
+# $Address = '10.0.1.0/24'
 $VMSize = 'Standard_B1s'
 # $AvailabilitySet = 'DemoAS'
 $VnetAddress = '10.0.0.0/16'
@@ -97,7 +97,10 @@ az network route-table list -g $ResourceGroup
 az network route-table show -g $ResourceGroup --name $RouteTable
 
 # Save the output to file
-az network route-table show -g $ResourceGroup --name $RouteTable > .\Desktop\output1.json
+az network route-table show -g $ResourceGroup --name $RouteTable > .\output1.json
 
 # Associate a subnet to a route table
 az network vnet subnet update -g $ResourceGroup -n $SubNet --vnet-name $VNet --route-table $RouteTable
+
+# saving new route in another file
+az network route-table show -g $ResourceGroup --name $RouteTable > .\output1.json
