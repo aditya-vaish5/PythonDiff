@@ -1,6 +1,11 @@
+from abc import ABC, abstractmethod
 # from itertools import cycle
+class JSON:
+    @abstractmethod
+    def compare(self,other):
+        pass
 
-class JSONObject:
+class JSONObject(JSON):
     def __init__(self, dic):
         self.items = []
         self.val = {}
@@ -27,6 +32,11 @@ class JSONObject:
         return s
 
     def compare(self, other):
+        if other is None:
+            print("=> only in OBJ1 values\n")
+            print(other)
+            return False
+
         shared_item = []
         only_1 = []
         only_2 = []
@@ -53,14 +63,14 @@ class JSONObject:
                 if self.val[item] is not None:
                     ans |= self.val[item].compare( other.val[item])
                 else:
-                    print("=> OBJ2 values\n")
+                    print("=> only in OBJ2 values\n")
                     print(other.val[item])
                     ans =False
             elif isinstance(self.val[item], JSONArray) or isinstance(other.val[item], JSONArray):
                 if self.val[item] is not None:
                     ans |= self.val[item].compare(other.val[item])
                 else:
-                    print("=> OBJ2 values\n")
+                    print("=> only in OBJ2 values\n")
                     print(other.val[item])
                     ans =False
             elif not self.val[item] == other.val[item]:
@@ -89,7 +99,7 @@ class JSONObject:
         return True
 
 
-class JSONArray:
+class JSONArray(JSON):
 
     def __init__(self, arr):
         self.items = []
@@ -114,7 +124,7 @@ class JSONArray:
 
     def compare(self,other):
         if other is None:
-            print("=> OBJ1 values\n")
+            print("=> only in OBJ1 values\n")
             print(other)
             return False
 
