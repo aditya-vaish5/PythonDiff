@@ -1,33 +1,29 @@
 import json
 import sys
-import getopt
+from classes.jsonobject import JSONObject
 
 # print( 'Number of arguments : ', len(sys.argv))
 # print(sys.argv[1])
 # print(sys.argv[2])
-
-try:
-    getopt.getopt(sys.argv, 'hi:i:', ["ifile=", "ifile"])
-except getopt.GetoptError:
+if len(sys.argv)!=3 :
     print('test.py -i <inputfile> -o <outputfile>')
     sys.exit(2)
 
 # print('okay')
-print(sys.argv[1])
-print(sys.argv[2])
+# print(sys.argv[1])
+# print(sys.argv[2])
 
 with open(sys.argv[1], 'r', encoding='utf-16') as f:
     # print(f.read())
     data1 = f.read()
 with open(sys.argv[2], 'r', encoding='utf-16') as f:
     data2 = f.read()
-print("printing data1")
 
 dic1 = json.loads(data1)
-print(dic1)
-print('--------------------')
-print(type(dic1['etag']))
-# print("printing data2")
-# dic2 = json.loads(data2)
-# print(dic2)
-print(json.dumps(dic1, indent=2, sort_keys=True))
+dic2 = json.loads(data2)
+ans = json.dumps(dic1, indent=2, sort_keys=True)
+
+with open('solution.json', 'w') as f:
+    json.dump(dic1['routes'],f, indent=2)
+
+obj1 = JSONObject()
