@@ -1,9 +1,12 @@
 from abc import ABC, abstractmethod
 # from itertools import cycle
+
+
 class JSON:
     @abstractmethod
-    def compare(self,other):
+    def compare(self, other):
         pass
+
 
 class JSONObject(JSON):
     def __init__(self, dic):
@@ -49,33 +52,37 @@ class JSONObject(JSON):
         for k in other.items:
             if k not in self.items:
                 only_2.append(k)
-        print("\nstuff only in 1 :")
-        print(only_1)
-        print("\nstuff only in 2 :")
-        print(only_2)
+        if len(only_1) > 0:
+            print("\nstuff only in 1 :")
+            print(only_1)
+        if len(only_2) > 0:
+            print("\nstuff only in 2 :")
+            print(only_2)
         print("\nDifferences in shared items are")
-        if len(only_1) > 0 or len(only_2) > 0:
-            ans = False
+        # ans = True
+        # if len(only_1) > 0 or len(only_2) > 0:
+        #     ans = False
         for item in shared_item:
             if not self.val[item] == other.val[item]:
                 print("\nInside  : ", item)
-            if isinstance(self.val[item], JSONObject) or isinstance(other.val[item],JSONObject):
+            if isinstance(self.val[item], JSONObject) or isinstance(other.val[item], JSONObject):
                 if self.val[item] is not None:
-                    ans |= self.val[item].compare( other.val[item])
+                    self.val[item].compare(other.val[item])
                 else:
                     print("=> only in OBJ2 values\n")
                     print(other.val[item])
-                    ans =False
+                    # ans =False
             elif isinstance(self.val[item], JSONArray) or isinstance(other.val[item], JSONArray):
                 if self.val[item] is not None:
-                    ans |= self.val[item].compare(other.val[item])
+                    self.val[item].compare(other.val[item])
                 else:
                     print("=> only in OBJ2 values\n")
                     print(other.val[item])
-                    ans =False
+                    # ans =False
             elif not self.val[item] == other.val[item]:
-                ans = False
-                print("in objects ", item, "is different.","\n\tOBJ1 :",self.val[item],"\n\tOBJ2 :",other.val[item] )
+                # ans = False
+                print("in objects ", item, "is different.", "\n\tOBJ1 :",
+                      self.val[item], "\n\tOBJ2 :", other.val[item])
 
     def __eq__(self, other):
         shared_item = []
@@ -122,7 +129,7 @@ class JSONArray(JSON):
         s += '.............'
         return s
 
-    def compare(self,other):
+    def compare(self, other):
         if other is None:
             print("=> only in OBJ1 values\n")
             print(other)
@@ -135,7 +142,7 @@ class JSONArray(JSON):
             found = False
             for l in other.items:
                 if k == l:
-                    found =True
+                    found = True
                     break
             if found == False:
                 only_1.append(k)
@@ -143,48 +150,47 @@ class JSONArray(JSON):
             found = False
             for l in self.items:
                 if k == l:
-                    found =True
+                    found = True
                     break
             if found == False:
                 only_2.append(k)
-        if(len(only_1)>0):
+        if(len(only_1) > 0):
             print("In array values only in OBJ1=\n")
             for i in only_1:
                 print(i)
-        if(len(only_2)>0):
+        if(len(only_2) > 0):
             print("In array values only in OBJ2=\n")
             for i in only_2:
                 print(i)
-        if len(only_1) >0 or len(only_2)>0:
+        if len(only_1) > 0 or len(only_2) > 0:
             return False
         return True
 
     def __eq__(self, other):
-        
 
         if self is None and other is not None:
             return False
 
         if other is None and self is not None:
             return False
-        
+
         if other is None and self is None:
             return True
         only_1 = []
         only_2 = []
         for k in self.items:
-            found =False
+            found = False
             for l in other.items:
                 if k == l:
-                    found =True
-            if found ==False:
+                    found = True
+            if found == False:
                 return False
         for k in other.items:
-            found =False
+            found = False
             for l in self.items:
                 if k == l:
-                    found =True
-            if found ==False:
+                    found = True
+            if found == False:
                 return False
         # print(only_1)
         # print(only_2)

@@ -13,10 +13,10 @@ if len(sys.argv)!=3 :
 # print(sys.argv[1])
 # print(sys.argv[2])
 
-with open(sys.argv[1], 'r', encoding='utf-16') as f:
+with open(sys.argv[1], 'r', encoding='ISO-8859-1') as f:
     # print(f.read())
     data1 = f.read()
-with open(sys.argv[2], 'r', encoding='utf-16') as f:
+with open(sys.argv[2], 'r', encoding='ISO-8859-1') as f:
     data2 = f.read()
 
 dic1 = json.loads(data1)
@@ -24,7 +24,7 @@ dic2 = json.loads(data2)
 ans = json.dumps(dic1, indent=2, sort_keys=True)
 
 with open('solution.json', 'w') as f:
-    json.dump(dic1['routes'],f, indent=2)
+    json.dump(dic1,f, indent=2)
 
 obj1 = JSONObject(dic1)
 # print(obj1)

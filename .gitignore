@@ -1,5 +1,4 @@
 *.pyc
-*.tfvars
 *.tfstate
 *.tfstate.backup
 
